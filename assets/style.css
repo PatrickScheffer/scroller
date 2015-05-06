@@ -1,0 +1,149 @@
+body, p, td, div, span {
+	font-family: 'arial', sans-serif;
+	font-size: 14px;
+	line-height: 26px;
+	-webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+	  background-image: url('../images/background.jpg');
+}
+
+h1, h2 {
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+.intro {
+	font-weight: 700;
+}
+
+.message {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	padding: 20px;
+	width: 100%;
+	border-bottom: 1px solid #FFCC00;
+	background-color: #FFFFCC;
+}
+
+.message .speed {
+	text-align: right;
+	padding-left: 10px;
+}
+
+.new_record {
+	display: none;
+	border-bottom: 1px solid #33CCFF;
+	background-color: #CCFFFF;
+}
+
+.new_record .submit_form_wrapper {
+	float: left;
+	margin-top: 20px;
+	width: 0px;
+	overflow: hidden;
+}
+
+.new_record .submit_form_wrapper .submit_form {
+	width: 262px;
+}
+
+.new_record .submit_form_wrapper .submit_form label {
+	font-weight: 700;
+	padding-right: 5px;
+}
+
+.new_record .submit_form #name {
+	padding: 4px;
+	width: 200px;
+}
+
+.submit_loading {
+	display: none;
+	border-bottom: 1px solid #33CCFF;
+	background-color: #CCFFFF;
+}
+
+.submit_loading img {
+	vertical-align: top;
+}
+
+.submit_success {
+	display: none;
+	border-bottom: 1px solid #009933;
+	background-color: #99FF66;
+}
+
+.submit_error {
+	display: none;
+	border-bottom: 1px solid #FF0000;
+	background-color: #FFC0C0;
+}
+
+.scoretable {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	padding: 20px;
+	width: 100%;
+	background-color: #FFFFCC;
+	border: 1px solid #FFCC00;
+}
+
+.scores .player_scores.left {
+	float: left;
+	width: 50%;
+}
+
+.scores .player_scores.right {
+	float: left;
+	width: 50%;
+}
+
+.scores .player_scores td {
+	padding-right: 10px;
+}
+
+.scores .player_scores .player_position {
+	text-align: right;
+}
+
+.scores .player_scores .player_score {
+	text-align: right;
+}
+
+.scores img {
+	vertical-align: top;
+}
+
+.scroller {
+	height: 10000px;
+}
+
+.second_bar {
+	position: fixed;
+	top: 139px;
+	left: 0px;
+	padding: 20px;
+	width: 100%;
+}
+
+.btn {
+	padding: 5px;
+	width: 100px;
+	margin-top: 20px;
+}
+
+.btn.submit {
+	background-color: #99FF66;
+	border: 1px solid #009933;
+}
+
+.btn.cancel {
+	background-color: #FFC0C0;
+	border: 1px solid #FF0000;
+}
