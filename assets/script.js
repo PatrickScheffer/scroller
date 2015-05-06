@@ -11,7 +11,12 @@ $(document).ready(function() {
 		if (speedInPxPerMs > fastest) {
 			fastest = speedInPxPerMs.toFixed(5);
 			$('.fastest_scroll').html(fastest);
-			$.post( "controller.php", { action: 'fastest_scroll', score: fastest });
+			$.post( "controller.php", { action: 'fastest_scroll', score: fastest, token: ajax_token }, function(data) {
+				var new_token = readCookie('ajax_token');
+				if (new_token) {
+					ajax_token = new_token;
+				}
+			});
 			if (fastest > 0 && (fastest > lowest || scores.length < 10)) {
 				$('.submit_loading').slideUp();
 				$('.submit_success').slideUp();
@@ -31,7 +36,12 @@ $(document).ready(function() {
 			} else {
 				reset_new_record();
 				$('.submit_loading').slideDown();
-				$.post( "controller.php", { action: 'submit_score', name: name, score: score }, function(data) {
+				$.post( "controller.php", { action: 'submit_score', name: name, score: score, token: ajax_token }, function(data) {
+					var new_token = readCookie('ajax_token');
+					if (new_token) {
+						ajax_token = new_token;
+					}
+
 					$('.submit_loading').slideUp();
 					if (data == 'success') {
 						$('.submit_success').slideDown();
@@ -70,7 +80,12 @@ $(document).ready(function() {
 
 	function load_scores() {
 		$('.scores').html('<img src="images/loader.gif" width="20" height="20" /> Loading...');
-		$.post( "controller.php", { action: 'load_scores' }, function(data) {
+		$.post( "controller.php", { action: 'load_scores', token: ajax_token }, function(data) {
+			var new_token = readCookie('ajax_token');
+			if (new_token) {
+				ajax_token = new_token;
+			}
+			
 			var obj = $.parseJSON(data);
 
 			if (obj.length > 0) {
@@ -119,5 +134,16 @@ $(document).ready(function() {
 				$('.scores').html('There are no scores yet.')
 			}
 		});
+	}
+
+	function readCookie(name)	{
+		var cookiename = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(cookiename) == 0) return c.substring(cookiename.length,c.length);
+		}
+		return false;
 	}
 });

@@ -1,11 +1,17 @@
 <?php
 require_once('config.php');
+require_once('lib/global.php');
 ?>
 
 <!doctype>
 <html>
 <head>
 	<title>Scroller</title>
+
+	<script language="javascript">
+		var ajax_token = "<?php print ajax_token(TRUE);?>";
+	</script>
+
 	<script language="javascript" src="assets/jquery-1.11.2.min.js"></script>
 	<script language="javascript" src="assets/scrollspeedmonitor.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/style.css" />

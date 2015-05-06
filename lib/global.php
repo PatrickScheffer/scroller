@@ -1,5 +1,21 @@
 <?php
 /**
+ * Create an ajax token if $update is true or if there isn't one yet.
+ *
+ * @param $update
+ *   Boolean
+ *
+ * @return
+ *   Ajax token
+ */
+function ajax_token($update = FALSE) {
+	if ($update || !isset($_SESSION['ajax_token'])) {
+		$_SESSION['ajax_token'] = md5(time());
+	}
+	return $_SESSION['ajax_token'];
+}
+
+/**
  * Safe alternative for $_GET.
  * All keys and values are parsed through htmlspecialchars.
  *

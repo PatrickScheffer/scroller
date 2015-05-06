@@ -20,6 +20,16 @@ if (strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
 	exit();
 }
 
+// Check if the ajax tokens match.
+if (ajax_token() != post('token')) {
+	print ajax_token().' = '.post('token');
+	add_log('AJAX', 'Invalid request: No token match.');
+	exit();
+}
+
+// Change the ajax token add put it in a cookie so Javascript can read it.
+setcookie('ajax_token', ajax_token(TRUE), 0, '/', $_SERVER['HTTP_HOST']);
+
 // Check what action to execute.
 switch (post('action')) {
 	case 'load_scores':
