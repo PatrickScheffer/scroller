@@ -62,7 +62,6 @@ switch (post('action')) {
 		}
 
 		if (!verify_score($score)) {
-			add_log('Score Submit', 'Unable to verify the submitted score.');
 			print 'error';
 			exit;
 		}
@@ -91,10 +90,12 @@ function verify_score($score = 0) {
 	global $config;
 
 	if (empty($score) || !isset($_SESSION[md5('scroller_fastest_scroll')])) {
+		add_log('Verify', 'No score or session score found.');
 		return FALSE;
 	}
 
 	if (!isset($_SESSION['user_ip']) || !isset($_SESSION['user_agent']) || $_SESSION['user_ip'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['user_agent'] != $_SERVER['HTTP_USER_AGENT']) {
+	  add_log('Verify', 'User IP and agent don\'t match with session.');
 	  return FALSE;
 	}
 
@@ -104,6 +105,7 @@ function verify_score($score = 0) {
 		return TRUE;
 	}
 
+	add_log('Verify', 'Score does not match with the session score.');
 	return FALSE;
 }
 
