@@ -17,7 +17,7 @@ require_once('lib/global.php');
 	<link rel="stylesheet" type="text/css" href="assets/style.css" />
 	<script language="javascript" src="assets/script.js"></script>
 </head>
-<body>
+<body style="height: <?php print $config['scroller_height'];?>px;">
 
 <div class="message">
 	<h2>Statistics</h2>
@@ -56,8 +56,6 @@ require_once('lib/global.php');
 	<h2>Scoretable</h2>
 	<div class="scores"></div>
 </div>
-
-<div class="scroller"></div>
 
 </body>
 </html>

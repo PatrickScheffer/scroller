@@ -2,16 +2,23 @@ $(document).ready(function() {
 	var scores = new Array();
 	var lowest = 0;
 	var fastest = 0;
+	var timerId = 0;
+	var scroller_height = $('body').height();
 
 	load_scores();
 
 	var scrollSpeedMonitor = new ScrollSpeedMonitor(function (speedInPxPerMs, timeStamp, newDirection) {
+		if ($('body')[0].scrollHeight != scroller_height) {
+			alert('Please don\'t mess with the scroll height.');
+			return;
+		}
+
 		$('.last_scrolling_speed').html(speedInPxPerMs.toFixed(5));
 
 		if (speedInPxPerMs > fastest) {
 			fastest = speedInPxPerMs.toFixed(5);
 			$('.fastest_scroll').html(fastest);
-			$.post( "controller.php", { action: 'fastest_scroll', score: fastest, token: ajax_token }, function(data) {
+			$.post( "controller.php", { action: 'fastest_scroll', score: fastest, token: ajax_token, scroller_height: $('body')[0].scrollHeight }, function(data) {
 				var new_token = readCookie('ajax_token');
 				if (new_token) {
 					ajax_token = new_token;
@@ -36,7 +43,7 @@ $(document).ready(function() {
 			} else {
 				reset_new_record();
 				$('.submit_loading').slideDown();
-				$.post( "controller.php", { action: 'submit_score', name: name, score: score, token: ajax_token }, function(data) {
+				$.post( "controller.php", { action: 'submit_score', name: name, score: score, token: ajax_token, scroller_height: $('body').height() }, function(data) {
 					var new_token = readCookie('ajax_token');
 					if (new_token) {
 						ajax_token = new_token;
@@ -46,6 +53,7 @@ $(document).ready(function() {
 					if (data == 'success') {
 						$('.submit_success').slideDown();
 						load_scores();
+						timerId = setTimeout(function() { $('.submit_success').slideUp(); clearTimeout(timerId); }, 3000);
 					} else {
 						$('.submit_error').slideDown();
 					}

@@ -8,7 +8,8 @@ body, p, td, div, span {
 }
 
 body {
-	  background-image: url('../images/background.jpg');
+	background-image: url('../images/background.jpg');
+	margin: 0px;
 }
 
 h1, h2 {
@@ -118,10 +119,6 @@ h1, h2 {
 
 .scores img {
 	vertical-align: top;
-}
-
-.scroller {
-	height: 10000px;
 }
 
 .second_bar {

@@ -1,7 +1,6 @@
 <?php
 require_once('config.php');
 require_once('lib/medoo.min.php');
-require_once('lib/cipher.class.php');
 require_once('lib/global.php');
 
 if (!isset($_SERVER['HTTP_REFERER'])) {
@@ -22,7 +21,6 @@ if (strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
 
 // Check if the ajax tokens match.
 if (ajax_token() != post('token')) {
-	print ajax_token().' = '.post('token');
 	add_log('AJAX', 'Invalid request: No token match.');
 	exit();
 }
@@ -39,7 +37,9 @@ switch (post('action')) {
 
 	case 'fastest_scroll':
 			$score = post('score');
-			if (is_numeric($score) && $score > 0) {
+			$height = post('scroller_height');
+
+			if (is_numeric($score) && $score > 0 && $height == $config['scroller_height']) {
 				update_score_session($score);
 			}
 		break;
@@ -47,6 +47,13 @@ switch (post('action')) {
 	case 'submit_score':
 		$name = post('name');
 		$score = post('score');
+		$height = post('scroller_height');
+
+		if ($height != $config['scroller_height']) {
+			add_log('Score Submit', 'Scroller height is altered.');
+			print 'error';
+			exit;
+		}
 
 		if (empty($name)) {
 			add_log('Score Submit', 'Empty name submitted.');
@@ -87,9 +94,11 @@ function verify_score($score = 0) {
 		return FALSE;
 	}
 
-	$cipher = new Cipher($config['cipher_key']);
+	if (!isset($_SESSION['user_ip']) || !isset($_SESSION['user_agent']) || $_SESSION['user_ip'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['user_agent'] != $_SERVER['HTTP_USER_AGENT']) {
+	  return FALSE;
+	}
 
-	$decryptedtext = $cipher->decrypt($_SESSION[md5('scroller_fastest_scroll')]);
+	$decryptedtext = base64_decode($_SESSION[md5('scroller_fastest_scroll')]);
 
 	if ($decryptedtext == $score) {
 		return TRUE;
@@ -102,14 +111,12 @@ function update_score_session($score = 0) {
 	global $config;
 
 	if (empty($score)) {
-		return;
+		return FALSE;
 	}
 
-	$cipher = new Cipher($config['cipher_key']);
-
-	$encryptedtext = $cipher->encrypt($score);
-
-	$_SESSION[md5('scroller_fastest_scroll')] = $encryptedtext;
+	$_SESSION['user_ip'] = $_SERVER['REMOTE_ADDR'];
+	$_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+	$_SESSION[md5('scroller_fastest_scroll')] = base64_encode($score);
 }
 
 function submit_score($name = '', $score = 0) {

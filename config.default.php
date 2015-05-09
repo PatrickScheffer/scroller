@@ -18,5 +18,5 @@ $config['domains'] = array(
 	'http://127.0.0.1/scroller/',
 );
 
-// Encrypt/Decrypt secret key.
-$config['cipher_key'] = 'secret_key';
+// Scroller div height.
+$config['scroller_height'] = 10000;
