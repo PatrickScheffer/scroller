@@ -15,7 +15,7 @@ require_once('lib/global.php');
 	<script language="javascript" src="assets/jquery-1.11.2.min.js"></script>
 	<script language="javascript" src="assets/scrollspeedmonitor.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/style.css" />
-	<script language="javascript" src="assets/script.js"></script>
+	<script language="javascript" src="assets/script.min.js"></script>
 </head>
 <body style="height: <?php print $config['scroller_height'];?>px;">
 
