@@ -48,6 +48,7 @@ switch (post('action')) {
 		$name = post('name');
 		$score = post('score');
 		$height = post('scroller_height');
+		$time = post('time');
 
 		if ($height != $config['scroller_height']) {
 			add_log('Score Submit', 'Scroller height is altered.');
@@ -57,6 +58,24 @@ switch (post('action')) {
 
 		if (empty($name)) {
 			add_log('Score Submit', 'Empty name submitted.');
+			print 'error';
+			exit;
+		}
+
+		if (empty($time)) {
+			add_log('Score Submit', 'Empty time submitted.');
+			print 'error';
+			exit;
+		}
+
+		if (empty($_COOKIE['scroller_yoloswag']) || $_COOKIE['scroller_yoloswag'] < (time() - 10000)) {
+			add_log('Score Submit', 'Cookie scroller_yoloswag not found or expired.');
+			print 'error';
+			exit;
+		}
+
+		if ($_COOKIE['scroller_yoloswag'] != $time) {
+			add_log('Score Submit', 'Cookie time does not match posted time.');
 			print 'error';
 			exit;
 		}

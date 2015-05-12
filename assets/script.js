@@ -43,7 +43,10 @@ $(document).ready(function() {
 			} else {
 				reset_new_record();
 				$('.submit_loading').slideDown();
-				$.post( "controller.php", { action: 'submit_score', name: name, score: score, token: ajax_token, scroller_height: $('body').height() }, function(data) {
+				var time = Date.now();
+				createCookie('scroller_yoloswag', time);
+
+				$.post( "controller.php", { action: 'submit_score', name: name, score: score, token: ajax_token, time: time, scroller_height: $('body').height() }, function(data) {
 					var new_token = readCookie('ajax_token');
 					if (new_token) {
 						ajax_token = new_token;
@@ -99,13 +102,23 @@ $(document).ready(function() {
 			if (obj.length > 0) {
 				var content = new Array();
 				content['left'] = '<table class="player_scores left">';
+				content['left'] += '<tr>';
+				content['left'] += '<th class="player_position">#</th>';
+				content['left'] += '<th class="player_name">Name</th>';
+				content['left'] += '<th class="player_score">Scroll speed (px/ms)</th>';
+				content['left'] += '</tr>';
+
 				content['right'] = '';
 				var position = 1;
 				var leftright = 'left';
 
 				if (obj.length > 5) {
 					content['right'] = '<table class="player_scores right">';
-				}
+					content['right'] += '<tr>';
+					content['right'] += '<th class="player_position">#</th>';
+					content['right'] += '<th class="player_name">Name</th>';
+					content['right'] += '<th class="player_score">Scroll speed (px/ms)</th>';
+					content['right'] += '</tr>';				}
 
 				for (var i in obj) {
 					if (obj[i].score != undefined && obj[i].name != undefined) {
@@ -153,5 +166,10 @@ $(document).ready(function() {
 			if (c.indexOf(cookiename) == 0) return c.substring(cookiename.length,c.length);
 		}
 		return false;
+	}
+
+	function createCookie(name,value) {
+    var expires = Date.now() + 10000;
+    document.cookie = name+"="+value+"; expires="+expires+"; path=/";
 	}
 });

@@ -27,8 +27,11 @@ h1, h2 {
 	left: 0px;
 	padding: 20px;
 	width: 100%;
-	border-bottom: 1px solid #FFCC00;
+	z-index: 2;
 	background-color: #FFFFCC;
+	-webkit-box-shadow: 0px 10px 60px -10px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 10px 60px -10px rgba(0,0,0,0.3);
+	box-shadow: 0px 10px 60px -10px rgba(0,0,0,0.3)
 }
 
 .message .speed {
@@ -38,7 +41,6 @@ h1, h2 {
 
 .new_record {
 	display: none;
-	border-bottom: 1px solid #33CCFF;
 	background-color: #CCFFFF;
 }
 
@@ -65,7 +67,6 @@ h1, h2 {
 
 .submit_loading {
 	display: none;
-	border-bottom: 1px solid #33CCFF;
 	background-color: #CCFFFF;
 }
 
@@ -75,13 +76,11 @@ h1, h2 {
 
 .submit_success {
 	display: none;
-	border-bottom: 1px solid #009933;
 	background-color: #99FF66;
 }
 
 .submit_error {
 	display: none;
-	border-bottom: 1px solid #FF0000;
 	background-color: #FFC0C0;
 }
 
@@ -92,7 +91,9 @@ h1, h2 {
 	padding: 20px;
 	width: 100%;
 	background-color: #FFFFCC;
-	border: 1px solid #FFCC00;
+	-webkit-box-shadow: 0px -10px 60px -10px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px -10px 60px -10px rgba(0,0,0,0.3);
+	box-shadow: 0px -10px 60px -10px rgba(0,0,0,0.3)
 }
 
 .scores .player_scores.left {
@@ -110,7 +111,11 @@ h1, h2 {
 }
 
 .scores .player_scores .player_position {
-	text-align: right;
+	text-align: center;
+}
+
+.scores .player_scores .player_name {
+	text-align: left;
 }
 
 .scores .player_scores .player_score {
@@ -123,10 +128,22 @@ h1, h2 {
 
 .second_bar {
 	position: fixed;
-	top: 139px;
+	top: 138px;
 	left: 0px;
 	padding: 20px;
 	width: 100%;
+	z-index: 1;
+	-webkit-box-shadow: 0px 10px 60px -10px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 10px 60px -10px rgba(0,0,0,0.3);
+	box-shadow: 0px 10px 60px -10px rgba(0,0,0,0.3)
+}
+
+.second_bar.text {
+	-webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.3);
+	box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.3)
+	color: #787878;
+	text-shadow: rgb(224, 224, 224) 1px 1px 0px;
 }
 
 .btn {

@@ -31,7 +31,7 @@ require_once('lib/global.php');
 	</table>
 </div>
 
-<div class="second_bar">
+<div class="second_bar text">
 	<h1>Scroller</h1>
 	<p class="intro">Test your scrolling skills and compete against other players. Scroll as fast as you can (up or down) and reach the top of the table!</p>
 </div>
